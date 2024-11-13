@@ -1,0 +1,80 @@
+.side-menu
+  .side-space.flex-1
+  include ../partials/learn-popup
+  include ../partials/privacy-terms
+  if user 
+    .js-accordion#js-accordion-assets-context()
+  .js-accordion#js-accordion-menu
+    .div.flex-1(style="overflow: scroll")
+      include ../partials/flash
+      unless user
+        .js-accordion-item
+          include ./../account/login
+      if user
+        if subscriptionData && (subscriptionData.planType == "monthly" || subscriptionData.planType == "lifetime") && subscriptionData.canceledAt == null
+            span
+        else
+          .js-accordion-item(style="padding-bottom: 20px; border-bottom: 0.5px solid #1e2742")
+            .side-menu-text
+              .div You have an Upgrade Available
+              .div Get the most out of arcade.studio with Pro!
+            .div-upgrade-now-btn#upgrade-pro
+              .div
+                .div CHECK OUT PRO
+      if user
+        .js-accordion-item.learn
+          .js-accordion-header Tutorials
+          .js-accordion-body
+            if isSuperAdmin
+              include ./../learn_admin
+            else
+              include ./../learn_user
+      else
+        .js-accordion-item.learn.active
+          .js-accordion-header Tutorials
+          .js-accordion-body.d-block
+            include ./../learn_user
+      if user
+        .js-accordion-item#tab-project
+          .js-accordion-header Projects
+            .project-buttons
+              .project-button
+                .create-project
+                  .plus
+                    .horizontal-line
+                    .vertical-line
+                  //-img(src="https://assets.website-files.com/616a041ea72c58e139ed3c8e/616a041ea72c583813ed3ca9_plus.png")
+              .project-button
+                .create-folder
+                  img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/control-panel/new-folder.svg")
+          .js-accordion-body.project-container
+            .project-create.d-none
+              input.project-name(placeholder="new project name")
+              .project-button.create create
+            .project-list
+              //- - var projects = user.Projects.sort((x, y) => { return y.id - x.id })
+              //- each project in projects
+              //-   .project-item(data-project-id=project.id)
+              //-     .project-name.editable-object=project.name
+              //-     .project-button.launch launch
+              //-     .project-button.duplicate duplicate
+              //-     .project-button.delete delete
+        .div#js-accordion-assets
+    .js-accordion-item.control-pannel-footer
+      .item#privacy-terms
+        img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/control-panel/icon-info.svg" width="20" alt="info")
+      if user
+        .item.create-item#profile(data-target="/create/portfolio")
+          img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/control-panel/icon-portfolio.svg" width="20" alt="portfolio")
+        .item.create-item#account(data-target="/create/account")
+          img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/control-panel/icon-account.svg" width="20" alt="account")
+      .item#chat
+        img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/control-panel/icon-chat.svg" width="24" alt="chat")
+
+#outside-delete-folder-menu
+  .delete-folder Delete folder
+  .delete-folder-and-projects Delete folder + projects
+
+  script.
+    window.isSuperAdmin = !{JSON.stringify(isSuperAdmin)};
+  

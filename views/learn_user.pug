@@ -1,0 +1,24 @@
+//- extends layout
+
+//- block head
+//-   link(rel="stylesheet", href="https://cdn.plyr.io/3.7.2/plyr.css")
+
+//- block content
+if user
+  .learn-container
+    .learn-list
+      each collection in collections
+        .learn-item
+          .learn-collection=collection.title
+          .learn-item-chapters
+            each chapter in collection.Chapters
+              .learn-item-chapter(data-video-id=chapter.video)=chapter.title
+else
+  .learn-container
+    .learn-list
+      each collection in collections
+        .learn-item
+          .opened.learn-collection=collection.title
+          .learn-item-chapters.opened
+            each chapter in collection.Chapters
+              .learn-item-chapter(data-video-id=chapter.video)=chapter.title

@@ -1,0 +1,11 @@
+node_modules
+
+.git
+.cache
+.DS_STORE
+
+.vscode
+
+*.md
+!README*.md
+README-secret.md

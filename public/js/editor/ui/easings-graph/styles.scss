@@ -1,0 +1,48 @@
+$primary-dark:#0f141e;
+$primary-light:#7292db;
+
+
+.easings-graph-container{
+    background: #0f141e;
+    border-radius: 4px;
+    border: 2px solid rgba(153, 172, 209, 0.2);
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    color:$primary-light;
+    &>div>svg{
+        margin: auto;
+        display: block;
+        circle{
+            fill:$primary-light;
+
+        }
+    }
+    background-color: $primary-dark;
+    form{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        select{
+            background-color: transparent;
+            color:$primary-light
+        }
+    }
+    button{
+        background-color: transparent;
+    }
+    svg{
+        *, &{
+            stroke: $primary-light;
+            color:$primary-light;
+
+        }
+        
+    }
+    input {
+        width:80px;
+        display: inline-block;
+        margin: 0 10px;
+        border:1px solid rgba(114, 146, 219, 0.85);
+    }
+}

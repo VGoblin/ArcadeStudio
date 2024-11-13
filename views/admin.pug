@@ -1,0 +1,98 @@
+extends layout_admin
+
+block head
+  link(rel="stylesheet", href="https://cdn.plyr.io/3.7.2/plyr.css")
+  script(src='/js/lib/lottie-player.js')
+  
+block content
+  .admin-home-container
+    .sample-banner(data-type=(backgroundType == null ? '' : backgroundType) data-thumbnail=(backgroundThumbnail == null ? '' : backgroundThumbnail) data-url=(backgroundUrl == null ? '' : backgroundUrl) style=(backgroundUrl != null && (backgroundType == null || backgroundType == "image")) ? `background: url(${backgroundUrl});` : ``)
+      if backgroundType == "animation"
+        lottie-player.sample-bg(autoplay=true loop=true mode="normal" src=backgroundUrl)
+      if backgroundType == "video"
+        video.sample-bg(preload="auto" autoplay=true loop="loop" muted="muted" volume="0")
+          source(src=backgroundUrl)
+      if backgroundType == "app"
+        iframe.sample-bg(src=backgroundUrl)
+      .admin-banner-menu.example-project-type
+        .menu-item.published-project
+          .div published project
+        
+        .menu-item.dashboard-background-option(data-type="image")
+          .div image
+        
+        .menu-item.dashboard-background-option(data-type="video")
+          .div video
+        
+        .menu-item.dashboard-background-option(data-type="animation")
+          .div Lottie animation
+
+      .admin-banner-menu.banner-options
+        .menu-item.edit-banner
+          .div edit banner
+        
+        .menu-item.add-example-project
+          .div add example project
+        
+
+      .admin-banner-menu.menu-coverarea
+        .menu-item(data-cover=1)
+          .div Cover Area
+          .div 1 : 1
+        .menu-item(data-cover=2)
+          .div Cover Area
+          .div 1 : 2
+        .menu-item(data-cover=3)
+          .div Cover Area
+          .div 2 : 1
+        .menu-item(data-cover=4)
+          .div Cover Area
+          .div 2 : 2
+
+      .admin-banner-menu.published-project-set-url
+        .menu-item
+          .div enter public app url
+        .url-input-field
+          .placeholder-url /
+          .input-url.username
+            input.placeholder-url(placeholder="username")
+          .placeholder-url /
+          .input-url.app-title
+            input.placeholder-url(placeholder="app-title")
+        .menu-item.url-save
+          .div save
+    .sample-gallery
+      each sample in samples
+        .sample(data-id=sample.id data-rate=sample.rate data-thumbnail=sample.thumbnail)
+          .delete-sample
+            img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/engine-ui/delete-icon.svg")
+          .sample-img(style=(sample.thumbnail ? "background-image: url("+sample.url+")" : ""))
+          .sample-description
+            img.sample-info(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/item-side-menu-options/project-details-btn.svg" width="25" height="25")
+            .toggle-rate
+              img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/website/master/add-btn.svg" width="13")
+          .sample-content
+            .sample-title.editable-object(data-attribute="title")=sample.title ? sample.title : "Your title here"
+            .sample-author.editable-object(data-attribute="author")=sample.author ? sample.author : "Your name here"
+            .sample-slug.editable-object(data-attribute="slug")=sample.slug ? sample.slug : "Your slug here"
+          .sample-description-box(style="display: none")
+            textarea.sample-description-text(disabled="disabled" maxlength="750" spellcheck="true" placeholder="Your description here..." data-undo-text=`${sample.description}`)=sample.description
+            .sample-description-nonediting
+              .sample-description-edit='Edit'
+              .sample-description-exit='Exit'
+            .sample-description-editing(style="display:none")
+              .sample-description-undo='Undo'
+              .sample-description-save='Save'
+block script
+  script(src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js")
+
+  script(src='/js/lib/Sortable.min.js')
+  script(src='/js/lib/jquery-sortable.js')
+  script(src='/js/admin.js')
+  script(src='/js/popup.js')
+  script(src='/js/create.js')
+  script(src='/js/csrf.js')
+
+  script(src='/js/learn_admin.js')
+  script(src="/js/learn_user.js")
+  script(src="/js/upgrade-pro.js")

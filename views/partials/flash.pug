@@ -1,0 +1,18 @@
+if messages.errors
+  .alert.alert-danger.fade.show
+    for error in messages.errors
+      div= error.msg
+    button.close(type='button' data-dismiss='alert')
+      img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/engine-ui/delete-icon.svg" width="15" height="15" alt="")
+if messages.info
+  .alert.alert-info.fade.show
+    for info in messages.info
+      div= info.msg
+    button.close(type='button' data-dismiss='alert')
+      img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/engine-ui/delete-icon.svg" width="15" height="15" alt="")
+if messages.success
+  .alert.alert-success.fade.show
+    for success in messages.success
+      div= success.msg
+    button.close(type='button' data-dismiss='alert')
+      img(src="https://arcadestudio-assets.s3.us-east-2.amazonaws.com/engine-ui/delete-icon.svg" width="15" height="15" alt="")

@@ -1,0 +1,123 @@
+.popupupgrade-wrapper#pro-popup
+  .upgrade-popup
+    .popup-body.flex-row
+      .iframe-wrapper.flex-1
+        iframe(src="http://dev.arcade.studio/as-assets/pro-popup")
+
+      .upgrade-details
+        .div-pro-features.scrollbar8
+          .div
+            .pro-feature-title Enhanced AI
+            .pro-feature-content Get the most out of our powerful AI tools! <br>Generate amazing images, videos and audio.
+          
+          .div
+            .pro-feature-title App Builder
+            .pro-feature-content With a single click turn your projects into desktop or mobile apps, even download as a web package to host yourself.
+          
+          .div
+            .pro-feature-title Exporters
+            .pro-feature-content Download all of your Images, 3D models, videos, audio files and projects to any device.
+            
+          
+          .div
+            .pro-feature-title Additional Pro Benefits!
+            .pro-feature-content Direct messaging with the team<br>Feature requests<br>Project history rewind<br>Recurring asset drops<br>10% off all app purchases
+        
+        .membership-row-wrapper.flex-1
+          .pro-plan-title
+            .pro-plan-title-text Choose a plan
+          .pro-prices-line
+            .div-block
+              .upgrade-title
+                .div-upgrade-title-block
+                  .text-block-pro-titles Monthly
+                .div-block-radio
+                  .radio-block.checked(data-value = "1")
+                    //- input(type='radio', name='register_webinar_', checked, value='1')#wnr1
+              .pro-price-div
+                .pro-price-free-1 FREE
+                .pro-price 
+                  span#pro-price-1 $29
+              .div-price-description 
+                .price-description Upgrade to Pro for <br>only $29 a month. <br>Cancel anytime.
+            .div-block
+              .upgrade-title
+                .div-upgrade-title-block
+                  .text-block-pro-titles Lifetime
+                .div-block-radio
+                  .radio-block(data-value = "2")
+                    //- input(type='radio', name='register_webinar_', value='2')#wnr2
+              .pro-price-div
+                .pro-price-free-2 FREE
+                .pro-price 
+                  span#pro-price-2 $2900
+              .div-price-description 
+                .price-description Pay once and get a <br>Pro account with updates for life!
+            .div-upgrade-btn
+              .arrow-pro-pop
+          .div-upgrade-btn-options(style="display: none;")
+            .div-saved-cards-btn Use saved card
+            .div-new-card-btn Use new card
+
+          .pro-upgrade-now-form
+
+            .pro-fields
+              .div-credit-card
+                .card-icon
+                  .card-icon-top
+                #stripe-card
+              .div-continue-arrow
+                .arrow
+
+            .pro-save-cards-list
+              if user.Payments
+                each eachPayment in user.Payments
+                  .card-entry
+                    .single-card-entry
+                      if eachPayment.dataValues.isDefault
+                        input(style="width:10%;")(type='radio', name='saved_cards', value=eachPayment.id, checked=true)
+                      //- else if !!subscriptionData && subscriptionData.paymentMethodId == eachPayment.paymentableId
+                        input(style="width:30%;")(type='radio', name='saved_cards', value=eachPayment.id, checked=true)
+                      else
+                        input(style="width:10%;")(type='radio', name='saved_cards', value=eachPayment.id)
+                      span.single-card-text=eachPayment.title
+            .pro-upgrade-btn         
+                .div
+                  .div Continue
+
+            .promo-fields
+              .div-enter-promo-code
+                input(type='text', name='promo_code', placeholder='enter promo code')#promo_code
+                input(type='hidden', name='promocode')#promocodeapplied
+              .div-promo-apply-button 
+                span.apply-text apply
+                span.check-mark 
+              .div-promo-messages 
+                .div-promo-code.verified Verified. Applied. 
+                .div-promo-code.invalid Invalid code. Try again.
+
+            .div-promo-and-cancel
+              .div
+                .div-promo-code(id='promoId') promo code
+              .div
+                .div-promo-code(id='cancelPromoId') back
+
+          .finalise-pro-purchase 
+            .finalise-pro-purchase-heading
+              .finalise-pro-purchase-heading-inside
+                span.title Review Purchase
+            .finalise-pro-purchase-sub-heading
+              .finalise-pro-purchase-sub-heading-inside
+                //- span.title $
+                span.finalize-price $2900 
+                span.finalize-plan-name Pro Lifetime Member
+            .finalise-pro-purchase-detail
+              p.detail-1 You are about to upgrade your account to a lifetime of Pro!
+              p.detail-2 This will include all Pro feature upgrades as well. Enjoy!
+              p.detail-3 
+            .finalise-pro-purchase-submit
+              .finalise-pro-purchase-submit-btn(data-id=subscriptionData.subscriptionId) Submit
+            .finalise-pro-purchase-cancel
+              .finalise-pro-purchase-cancel-btn cancel
+              
+      style.player-wrapper-style

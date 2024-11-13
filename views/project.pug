@@ -1,0 +1,172 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0')
+    meta(name='csrf-token', content=_csrf)
+    title arcade.studio
+    link(rel='apple-touch-icon' href='/images/icon.png')
+    link(rel='shortcut icon' href='/favicon.ico')
+    link(rel="stylesheet" href="/js/lib/jquery-wheelcolorpicker-master/css/wheelcolorpicker.css")
+    link(rel='stylesheet' href='/css/main.css')
+    link(rel='stylesheet' href='/js/editor/libs/color-picker/color-picker.css')
+    link(rel='stylesheet' href='/js/editor/libs/loading-bar/loading-bar.min.css')
+    link(rel='stylesheet' href='/js/editor/libs/logicblock/css/normalize.css')
+    link(rel='stylesheet' href='/js/editor/libs/logicblock/css/webflow.css')
+    link(rel='stylesheet' href='/js/editor/libs/logicblock/css/logicblock.css')
+    link(rel='stylesheet' href='/js/editor/libs/codemirror/codemirror.css')
+    link(rel='stylesheet' href='/js/editor/libs/codemirror/theme/monokai.css')
+    link(rel='stylesheet' href='/js/editor/libs/codemirror/addon/dialog.css')
+    link(rel='stylesheet' href='/js/editor/libs/codemirror/addon/show-hint.css')
+    link(rel='stylesheet' href='/js/editor/libs/codemirror/addon/tern.css')
+    link(rel="stylesheet" href="https://cdn.plyr.io/3.7.2/plyr.css")
+    style.
+      .popup-wrapper {
+        position: absolute;
+      }
+      .popup2-wrapper {
+        position: absolute;
+      }
+      .popuplearn-wrapper {
+        position: absolute;
+      }
+      .popupterms-wrapper {
+        position: absolute;
+      }
+      .popupupgrade-wrapper {
+        font-family: $font_family_1;
+        position: absolute;
+        left: 3rem;
+        top: 5rem;
+        right: 3rem;
+        bottom: 4rem;
+        display: none;
+        overflow: hidden;
+        height: 38rem;
+        margin-right: 24.8rem;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        flex: 0 auto;
+        background-color: rgba(0, 0, 0, 0);
+        font-family: Montserrat, sans-serif;
+        color: #7292db;
+        font-size: 12px;
+        font-weight: 200;
+        z-index: 2000;
+      }
+
+      .popupupgrade-wrapper .upgrade-popup {
+        height: 100%;
+        width: 100%;
+        border: 2px solid rgba(153,172,209,0.2);
+        border-radius: 12px;
+      }
+  body.main
+    #drag-ghost
+    .image-load(style="display: none;")
+
+script(async='', src='https://www.googletagmanager.com/gtag/js?id=G-42884FCM73')
+script.
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-42884FCM73');
+
+script.
+  var project=!{JSON.stringify(p)};
+  window.isSuperAdmin = !{JSON.stringify(isSuperAdmin)};
+script(src='/js/lib/jquery.min.js')
+script(src='/js/brush/fabric.js')
+script(src='/js/brush/croquis.js')
+script(src='/js/brush/dat.gui.min.js')
+script(src='/js/brush/eraser_brush.mixin.js')
+script(src='/js/brush/tbrush.js' type="module" defer)
+
+script(src="/js/tcrs/tcrs-origin-center.min.js")
+script(src="/js/tcrs/tcrs-generated-labels.min.js")
+script(src="/js/tcrs/tcrs-marks.min.js")
+script(src="/js/tcrs/toolcool-range-slider.min.js")
+script(src="/js/lib/jquery-wheelcolorpicker-master/jquery.wheelcolorpicker.js")
+script(src="/js/color-picker.js" defer)
+
+script(src='/js/lib/lottie_canvas.js')
+script(src='/js/lib/lottie-player.js')
+script(src='https://npmcdn.com/snapback@0.6.1/dist/snapback.min.js')
+script(src='/js/vendor.min.js' defer)
+script(src='/js/studio.min.js' defer)
+script(src="/js/lib/app/lazysizes.min.js")
+
+
+script(id="vertexshader", type="x-shader/x-vertex").
+    attribute float displacement;
+    uniform vec3 vLut[256];
+    varying vec3 vColor;
+
+    void main()
+    {
+
+        int index = int(displacement);
+        vColor = vLut[index];
+        vec3 newPosition = position + normal*displacement/25.5;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition,1.0);
+    }
+
+script(id="fragmentshader", type="x-shader/x-fragment").
+    varying vec3 vColor;
+    void main()
+    {
+        gl_FragColor    = vec4(vColor,1.0);
+    }
+
+if user
+  if subscriptionData.planType && subscriptionData.planType == "monthly" && subscriptionData.canceledAt == null
+      span
+  else
+    .d-none.pro-panel.js-accordion-item(style="padding-bottom: 20px; border-bottom: 0.5px solid #1e2742")
+      .side-menu-text
+        .div You have an Upgrade Available
+        .div Get the most out of arcade.studio with Pro!
+      .div-upgrade-now-btn#upgrade-pro
+        .div
+          .div CHECK OUT PRO
+if user
+  .d-none.Accordion.js-accordion-item.learn(data-accordion-group='defaultAccordionGroup')
+    .AccordionTitle.js-accordion-header Tutorials
+    if user
+      .AccordionBody.js-accordion-body(style="display: none; border-bottom: 0.5px solid #1e2742", data-accordion-group='defaultAccordionGroup')
+        if isSuperAdmin
+          include ./learn_admin
+        else
+          include ./learn_user
+    else 
+      .AccordionBody.js-accordion-body.d-block(style="display: none", data-accordion-group='defaultAccordionGroup')
+        include ./learn_user
+
+include partials/app-popup
+if user
+  include partials/pro-popup
+include partials/learn-popup
+include partials/privacy-terms
+
+script(src="https://js.stripe.com/v3/")
+//- script(src="js/stripe_account.js")
+//- script(src="https://www.paypal.com/sdk/js?client-id=AZO5LAxNQbFfvWcidHbT6yOw7Rkd8R_QkRu72FVq6cQJqcr74HA-itpneRcpxViXPcpQGcX_fG9rUgDh&vault=true")
+script(src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js")
+script(src='/js/lib/Sortable.min.js')
+script(src='/js/lib/jquery-sortable.js')
+script(src='/js/csrf.js')
+script(src='/js/popup.js')
+script(src='/js/create.js')
+script(src='/js/learn_admin.js')
+script(src="/js/learn_user.js")
+if user 
+  script(src="/js/upgrade-pro.js")
+
+script(src="/js/stripe_billing.js")

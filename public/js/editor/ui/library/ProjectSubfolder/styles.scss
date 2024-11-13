@@ -1,0 +1,102 @@
+#newProjectBtn{
+    display: flex;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #7292db;
+    border-radius: 4px;
+    padding: 1px;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+
+    & > img {
+    max-width: 60%;
+    }
+        .plus {
+          width: 10px;
+          height: 10px;
+          position: relative;
+      
+          .horizontal-line,
+          .vertical-line {
+            position: absolute;
+            background-color: #7292db;
+          }
+      
+          .horizontal-line {
+            width: 80%;
+            height: 1px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+      
+          .vertical-line {
+            width: 1px;
+            height: 80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+        }
+      
+}
+
+#newFolderBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+}
+
+#delete-folder-menu{
+    position: fixed;
+    overflow: hidden;
+    z-index: 99999999999;
+    background-color: #0f141e;
+    padding:0px;
+    border-radius: 4px;
+    font-size: 12px;
+    &>*{
+        padding:3px 8px;
+        margin:0px;
+        color:#7292db;
+        ;
+        cursor: pointer;
+        background-color: transparent;
+        &:hover{
+            background-color: #242b47;
+        }
+    }
+}
+
+.projectSubFolder .AccordionTitleText{
+    min-width: 40px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+    &:focus-visible{
+        outline: none;
+    }
+    *{
+        display: inline;
+    }
+    br{
+        display: none;
+    }
+}
+
+.projectSubFolder .AccordionTitle{
+    &::focus-visible{
+        border: 0;
+        outline: none;
+    }
+
+    *::focus-visible{
+        border: 0;
+        outline: none;
+    }
+} 

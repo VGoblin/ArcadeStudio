@@ -1,0 +1,22 @@
+.nice-dialog{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    // as of writing this, z-index for player is 3000 
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    .backdrop{
+        inset: 0;
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.356);
+    }
+    .content{
+        position: relative;
+        z-index: 2;
+        border-radius: 10px;
+    }
+
+}

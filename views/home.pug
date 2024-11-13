@@ -1,0 +1,51 @@
+extends layout
+
+block head
+  script(src='/js/lib/lottie-player.js')
+
+block content
+  .home-container
+    .sample-banner(style=(backgroundUrl != null && (backgroundType == null || backgroundType == "image")) ? `background: url(${backgroundUrl});` : ``)
+      if backgroundType == "animation"
+        lottie-player.sample-bg(autoplay=true loop=true mode="normal" src=backgroundUrl)
+      if backgroundType == "video"
+        video.sample-bg(preload="auto" autoplay=true loop="loop" muted="muted" volume="0")
+          source(src=backgroundUrl)
+      if backgroundType == "app"
+        iframe.sample-bg(src=backgroundUrl)
+    .sample-gallery
+      each sample in samples
+        .sample(data-id=sample.id data-rate=sample.rate)
+          .sample-img(href="#" data-title=sample.title data-details=(sample.title + ": " + sample.author) data-slug=sample.slug data-username=sample.author data-author=(sample.author ? sample.author : '') data-thumbnail=sample.thumbnail data-description=sample.description ? sample.description : "" style=(sample.thumbnail ? "background-image: url("+sample.url+")" : ""))
+  include partials/app-popup
+  if user
+    include partials/pro-popup
+block script
+  script(src="https://js.stripe.com/v3/")
+  //- script(src="js/stripe_account.js")
+  //- script(src="https://www.paypal.com/sdk/js?client-id=AZO5LAxNQbFfvWcidHbT6yOw7Rkd8R_QkRu72FVq6cQJqcr74HA-itpneRcpxViXPcpQGcX_fG9rUgDh&vault=true")
+  script(src="https://cdn.plyr.io/3.7.2/plyr.polyfilled.js")
+  script(src='/js/lib/Sortable.min.js')
+  script(src='/js/lib/jquery-sortable.js')
+  script(src='/js/csrf.js')
+  script(src='/js/popup.js')
+  script(src='/js/share.js')
+  script(src='/js/explore.js')
+  script(src='/js/login.js')
+  script(src='/js/create.js')
+  if user
+    script(src='/js/dist/menu.js')
+
+  script(src='/js/learn_admin.js')
+  script(src="/js/learn_user.js")
+  if user 
+    script(src="/js/upgrade-pro.js")
+
+  script(src="/js/stripe_billing.js")
+    
+  script(async='', src='https://www.googletagmanager.com/gtag/js?id=G-42884FCM73')
+  script.
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-42884FCM73');
